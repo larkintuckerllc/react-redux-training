@@ -11,9 +11,9 @@ React / Redux framework.
 
 As to why learn the React / Redux framework, here is the short argument:
 
-1) You are building a *web application* vs. a *web site*.
-2) The web application is non-trivial.
-3) You are concerned about long-term management of the web application.
+1. You are building a *web application* vs. a *web site*.
+2. The web application is non-trivial.
+3. You are concerned about long-term management of the web application.
 
 The longer argument is provided by Facebook (recommend that you watch on
 your own).
