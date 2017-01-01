@@ -1,7 +1,5 @@
 # React / Redux Training
 
-## Introduction
-
 This branch is one lesson in a series of lessons to supplement a six hour
 in-class React / Redux training course; switch to the *master* branch
 to start the series.
@@ -9,7 +7,7 @@ to start the series.
 This lesson will focus on installing and getting up and running with
 various development tools.
 
-### Chrome Browser
+## Chrome Browser
 
 While there are a number of browsers available, for the sake of consistency
 we will use the Chrome browser throughout this training course.
@@ -18,10 +16,10 @@ we will use the Chrome browser throughout this training course.
 
 https://www.google.com/chrome/browser/desktop/
 
-### ATOM Text Editor
+## ATOM Text Editor
 
 While you may favor a particular text editor, for the sake of consistency
-we will use ATOM text editor throughout this training course.
+we will use the ATOM text editor throughout this training course.
 
 **Assignment:** Install the ATOM text editor from:
 
@@ -36,6 +34,7 @@ folder *lesson_1* (provided below).
 4. Open *index.html* in Chrome browser.
 5. Open Chrome *Developer tools*.
 
+*index.html*
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -51,6 +50,7 @@ folder *lesson_1* (provided below).
 </html>
 ```
 
+*index.js*
 ```js
 (function() {
   'use strict';
