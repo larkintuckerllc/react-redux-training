@@ -1,9 +1,9 @@
 # React / Redux Training
 
-## Introduction
-
 This repository provides a series of lessons to supplement a six hour
 in-class React / Redux training course.
+
+## Introduction
 
 The assumption is that you are already familiar with the basics of HTML,
 CSS, and JavaScript and is interested in getting up to speed with the
