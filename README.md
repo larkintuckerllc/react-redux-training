@@ -2,26 +2,58 @@
 
 ## Introduction
 
-This repository provides a series of lessons to supplement a six hour
-in-class React / Redux training course.
+This branch is one lesson in a series of lessons to supplement a six hour
+in-class React / Redux training course; switch to the *master* branch
+to start the series.
 
-The assumption is that you are already familiar with the basics of HTML,
-CSS, and JavaScript and is interested in getting up to speed with the
-React / Redux framework.
+This lesson will focus on installing and getting up and running with
+various development tools.
 
-As to why learn the React / Redux framework, here is the short argument:
+### Chrome Browser
 
-1. You are building a *web application* vs. a *web site*.
-2. The web application is non-trivial.
-3. You are concerned about long-term management of the web application.
+While there are a number of browsers available, for the sake of consistency
+we will use the Chrome browser throughout this training course.
 
-The longer argument is provided by Facebook (recommend that you watch on
-your own).
+**Assignment:** Install Chrome browser from:
 
-https://facebook.github.io/flux/
+https://www.google.com/chrome/browser/desktop/
 
-This repository is organized into a series of lessons; one per branch (each
-with its own *README.md* file). The remaining files in the branch provide
-the final result of the lesson.
+### ATOM Text Editor
 
-To continue to the first lesson, select the branch named *lesson_1*.
+While you may favor a particular text editor, for the sake of consistency
+we will use ATOM text editor throughout this training course.
+
+**Assignment:** Install the ATOM text editor from:
+
+https://atom.io/
+
+**Assignment:**
+
+1. Create a folder called *react-redux-training*.
+2. Create a sub-folder called *lesson_1*.
+3. Using ATOM create the files *index.html* and *index.js* in the
+folder *lesson_1* (provided below).
+4. Open *index.html* in Chrome browser.
+5. Open Chrome *Developer tools*.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>React Redux Training: Lesson 1</title>
+  </head>
+  <body>
+    <p>Lesson 1</p>
+    <script src="index.js"></script>
+  </body>
+</html>
+```
+
+```js
+(function() {
+  'use strict';
+  window.console.log('Hello Lesson 1');
+})();
+```
