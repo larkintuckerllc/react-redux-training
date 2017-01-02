@@ -7,9 +7,9 @@ to start the series.
 This lesson will focus on installing and getting up and running with
 various development tools.
 
-In this and future lessons, the solution can be download from this page
-and installed with the command `npm install` from the command line / terminal
-in the package folder, e.g,. in this case *lesson_1*.
+In this and future lessons, the solution can be download from the lesson
+(branch) page and installed with the command `npm install` from the command
+line / terminal in the package folder, e.g,. in this case *lesson_1*.
 
 ## Chrome Browser
 
