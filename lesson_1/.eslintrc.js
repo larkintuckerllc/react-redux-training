@@ -1,3 +1,7 @@
 module.exports = {
-    "extends": "google"
+    "extends": "standard",
+    "plugins": [
+        "standard",
+        "promise"
+    ]
 };

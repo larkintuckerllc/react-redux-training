@@ -48,7 +48,8 @@ folder *lesson_1* (provided below).
     <title>React Redux Training: Lesson 1</title>
   </head>
   <body>
-    <p>Lesson 1</p>
+    <div id="counter">0</div>
+    <button id="increment">+</button>
     <script src="index.js"></script>
   </body>
 </html>
@@ -56,11 +57,19 @@ folder *lesson_1* (provided below).
 
 *index.js*
 ```js
-(function() {
-  'use strict';
-  window.console.log('Hello Lesson 1');
-})();
+(function () {
+  'use strict'
+  var counterEl = document.getElementById('counter')
+  var incrementEl = document.getElementById('increment')
+  incrementEl.addEventListener('click', function () {
+    counterEl.innerHTML = (parseInt(counterEl.innerHTML) + 1).toString()
+  })
+  // This is a nonsense line
+})()
 ```
+
+**note:** This example relies on the *automatic semi-colon insertion*
+feature of JavaScript to appease the linter configuration (later).
 
 ## Node.js
 
@@ -92,12 +101,11 @@ the package folder, e.g., in this case *lesson_1*. Also, instructions
 are often written with Linux / MacOS in mind; use the backslash to
 delimit folders in the case of Windows.
 
-**note:** Follow the instructions to use the popular *Google*
+**note:** Follow the instructions to use the *standard*
 JavaScript style guide.
 
 **Assignment:** Display, e.g., `cat` or `type`, the *package.json* file
-to observe the two added development dependencies, *eslint* and
-*eslint-config-google*.
+to observe the added development dependencies under *devDependencies*.
 
 **Assignment:** Display the *.eslintrc.js* file to observe the ESLint
 configuration.
