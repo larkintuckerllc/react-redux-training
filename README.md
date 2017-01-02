@@ -101,7 +101,7 @@ the package folder, e.g., in this case *lesson_1*. Also, instructions
 are often written with Linux / MacOS in mind; use the backslash to
 delimit folders in the case of Windows.
 
-**note:** Follow the instructions to use the *standard*
+**note:** Follow the instructions to use the *Standard*
 JavaScript style guide.
 
 **Assignment:** Display, e.g., `cat` or `type`, the *package.json* file
