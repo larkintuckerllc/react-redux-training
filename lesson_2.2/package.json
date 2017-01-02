@@ -15,8 +15,5 @@
     "eslint": "^3.12.2",
     "eslint-config-airbnb-base": "^11.0.0",
     "eslint-plugin-import": "^2.2.0"
-  },
-  "dependencies": {
-    "babel-polyfill": "^6.20.0"
   }
 }

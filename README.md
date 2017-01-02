@@ -120,9 +120,8 @@ and accept all default.
 without React.
 5. Run `npm install --save-dev babel-cli`.
 6. Run `npm install --save-dev babel-preset-es2015`.
-7. Run `npm install --save babel-polyfill`.
-8. Run `npm install --save-dev browserify`.
-9. Using ATOM create the file *.babelrc* in the *lesson_2.2* folder
+7. Run `npm install --save-dev browserify`.
+8. Using ATOM create the file *.babelrc* in the *lesson_2.2* folder
 (provided below).
 
 *.babelrc*
