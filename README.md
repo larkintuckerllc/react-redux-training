@@ -32,9 +32,6 @@ provide you a fully functional React development environment that
 hides all the aforementioned complexities. You can go quite far in
 developing React web applications with this approach.
 
-**note:** If you take a peek under the hood, *Create React App* uses
-many of the same development dependencies as we saw above.
-
 **Assignment:** Setup the development environment, scaffold the
 project, and build it by following the steps:
 
