@@ -35,7 +35,7 @@ render() {
 ```
 
 **note**: Remember React components need to return a single component;
-thus the extra *<div>*.
+thus the extra `<div>`.
 
 ## The State
 
