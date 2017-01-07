@@ -4,182 +4,160 @@ This branch is one lesson in a series of lessons to supplement a six hour
 in-class React / Redux training course; switch to the *master* branch
 to start the series.
 
-In this lesson, we will build a React "Hello World" application and do
-a deep dive into how it is built.
+In this lesson, we will re-implement the counter application in React;
+along the way introducing several React concepts.
 
 ## Setting Up the Project
 
 **Assignment:** Create a new React project following these steps:
 
-1. From the command line / terminal in the *react-redux-training* folder
-type `create-react-app lesson_4`.
-2. Using ATOM add the *eslint object* to the root object in the *package.json*
-file (see below).
-3. From the *lesson_4* folder, type *npm start* to start the application
+1. Duplicate the folder *lesson_4*; naming it *lesson_5*.
+2. Using ATOM, edit the *package.json* file in *lesson_5*; rename the
+project *lesson_5*.
+3. From the *lesson_5* folder, type *npm start* to start the application
 in your default browser.
 
-*eslintConfig object*
-```json
-"eslintConfig": {
-  "extends": "react-app"
-}
-```
+## Laying out the Render Method
 
-**Assignment:** Convert the project to a simple "Hello World" app by following
-these steps:
-
-1. Using ATOM replace the *render* method (see below) in the
-*lesson_4/src/App.js* file.
-2. In the same *App.js* file delete the line `import logo from './logo.svg';`.
-3. In the same *App.js* file delete the line `import './App.css';` and save
-the file.
-4. Using ATOM with the file *lesson_4/src/index.js* delete the line
-`import './index.css'` and save the file.
-5. Delete the files *App.css*, *App.test.js*, *index.css*, and *logo.svg*.
+**Assignment:** Using ATOM update the *render* method (provided below) in
+the file *src/App.js*.
 
 *render method*
 ```js
 render() {
   return (
-    <div>Hello World</div>
+    <div>
+      <div>0</div>
+      <button>+</button>
+    </div>
   );
 }
 ```
 
-## Production Build
+**note**: Remember React components need to return a single component;
+thus the extra *<div>*.
 
-Before getting to reviewing the code, we will step aside to see how we
-put this project into production.
+## The State
 
-**Assignment:** From the command line / terminal in the *lesson_4* folder
-type `npm run build`.
+In the previous counter application implementations, the current value
+(state) of the counter was stored in the DOM itself (the *counter* element).
+One problem with this approach is that interacting with the DOM is slow;
+another is that the code is messy with all the DOM commands.
 
-**Assignment:** Observe the contents of the created *build* folder. You
-will see that it is much like the *dist* folder that we created in
-an earlier lesson.
+Instead, we will simply keep the state of the counter as a property of the
+component; actually wrapped in a property called *state*. This is just
+plain old ES2015 classes.
 
-To put this into production put the contents of the *build*
-folder on a web server.
+**Assignment:** Using ATOM add the *constructor* (provided below)
+immediately after the *class* declaration line in the file *src/App.js*.
 
-## Static Assets
-
-The projects static assets are stored in the project's *public* folder;
-this includes the HTML file that gets injected with the bundled
-resources (this is much like the *index.html* and *bundle.js* that we
-created in an earlier lesson.
-
-## The *index.js* File
-
-The first project file we will look at in detail is *src/index.js*; much
-like our earlier lesson this file is the entry point for our application with
-all other resources being referenced from it.
-
+*constructor*
 ```js
-import React from 'react';
+constructor() {
+  super();
+  this.state = {
+    counter: 0,
+  };
+}
 ```
 
-As we have seen previously, this line will import the functionality of the
-React package into the `React` object. This object is used implicitly
-by the JSX code (explained below).
+**Assignment:** Using ATOM update the *render* method (provided below) in
+the file *src/App.js*.
 
+*render method*
 ```js
-import ReactDOM from 'react-dom';
+render() {
+  const { counter } = this.state;
+  return (
+    <div>
+      <div>{counter}</div>
+      <button>+</button>
+    </div>
+  );
+}
 ```
 
-The `ReactDOM` object is explicitly used in the code and is used to
-provide the integration of React to the DOM. The React package can be
-used with other integrations, e.g. React Native (for Android and iOS).
+First you can that we use object destructuring to assign the counter value
+to the *counter* variable.
 
+Additionally, we use the JSX curly brace syntax to indicate to the
+transpiler (Babel) that the containing content is JavaScript that is
+passed as the child of the element.
+
+*div transpiled*
 ```js
-import App from './App';
+React.createElement(
+  'div',
+  null,
+  counter
+)
 ```
 
-The *App* object is a React component that will will use to provide
-the functionality of our application (more on this later).
+**note:** Technically the value of counter is an integer (not a string
+as we want rendered to the DOM); luckily this environment is forgiving.
+Otherwise we would have to use *counter.toString()*.
 
+**Assignment:** In the same *render* method replace `{counter}`
+with `{counter === 0 ? 'zero' : counter}`
+
+Illustrates that we can pass in more complex JavaScript. This is an example
+of a JavaScript ternary operator that often gets used with React.
+
+## Event Handling
+
+Now, when the user clicks on the increment button we need a way to
+handle this.
+
+**Assignment:** In the same *render* method update the *button*
+component (provided below).
+
+*button component*
 ```js
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+<button
+  onClick={() => { window.console.log('CLICKED'); }}
+>
+  +
+</button>
 ```
 
-This group of lines takes any rendered HTML output of an instance of a *App*
-object and inserts it into the DOM object with the id of *root*; think of
-the *innerHTML* function we used in an earlier lesson.
+**note:** It is very easy to misunderstand what is going on and
+think we are doing old-style DOM manipulation.
 
-The unusual XML markup (called JSX) is simply shorthand notation for specific
-React methods that is transpiled into JavaScript by Babel, e.g., *<App />*
-shorthand for:
+The proper way to interpret the *onClick* line is:
 
+1. We create JavaScript code that evaluates to a function (the ES2015 style
+arrow function).
+2. We wrap it in curly braces to tell Babel to evaluate the containing
+as JavaScript code; resulting in this case a function.
+3. The resultant function then gets passed to the *<button>* component
+as the special *onClick* property; more on properties later.
+4. The special *onClick* property causes React to attach (and detatch)
+*click* event listeners to the created DOM *button* element.
+
+*button transpiled*
 ```js
-React.createElement(App, null, null);
+React.createElement(
+  'button',
+  {
+    onClick: function onClick() {
+      window.console.log('CLICKED');
+    }
+  },
+  '+'
+)
 ```
 
-*note:* While JSX looks like HTML (which ends up being very handy),
-it is important to keep in the back of your mind that it is not.
+## Causing Component to Re-render
 
-## The *App.js* File
+The inherited *setState* method of a React component will:
 
-The *App.js* file creates a React component; the key concept in understanding
-React.  As a matter of fact, the all the code going forward is simply a
-tree of React components.
+1. Set the component's *state* property.
+2. Cause the React component to re-render by calling the component's
+*render* method.
 
-This React component is created using the ES2015 *class* concept; much
-like classes in other object oriented languages.
+**Assignment:** Update the button's *onClick* property (provided below);
 
+*onClick property*
 ```js
-import React, { Component } from 'react';
+onClick={() => { this.setState({ counter: counter + 1 }); }}
 ```
-
-This import introduces another ES2015 concept, object destructuring, e.g.,
-in the following code the value of *b* is the string *'banana'*.
-
-```js
-const o = {
-  a: 'apple',
-  b: 'banana',
-};
-const { b } = o;
-```
-
-```js
-class App extends Component {
-```
-
-This is the ES2016 *class* declaration that creates a new class *App*
-that extends the functionality of the *Component* class.
-
-```js
-  render() {
-    return (
-      <div>Hello World</div>
-    );
-  }
-```
-
-The only method that you have to override in a React component is the
-*render* method. The render method is required to return a single
-React component.
-
-In this specific case, it returns the component created by
-`<div>Hello World</div>` which is shorthand for:
-
-```js
-React.createElement('div', null, 'Hello World');
-```
-
-React interprets this special case as, create a DOM element of type *div* with
-*innerHTML* of *'Hello World'* and insert it into the DOM. The related, but
-less obvious behavior, is that this component will remove the *div*
-element from the DOM when it the component is unmounted (explained later
-when we discuss the component lifecycle).
-
-As you can see, it is hard not to interpret this JSX as simply HTML.
-
-```js
-export default App;
-```
-
-Like an earlier lesson, this exports the *App* class to be used
-by the *index.js* code above.
