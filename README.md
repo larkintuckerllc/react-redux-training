@@ -4,160 +4,90 @@ This branch is one lesson in a series of lessons to supplement a six hour
 in-class React / Redux training course; switch to the *master* branch
 to start the series.
 
-In this lesson, we will re-implement the counter application in React;
-along the way introducing several React concepts.
+In this lesson, we will refactor the counter application using stateless
+functional components and properties.
 
 ## Setting Up the Project
 
 **Assignment:** Create a new React project following these steps:
 
-1. Duplicate the folder *lesson_4*; naming it *lesson_5*.
-2. Using ATOM, edit the *package.json* file in *lesson_5*; rename the
-project *lesson_5*.
-3. From the *lesson_5* folder, type *npm start* to start the application
+1. Duplicate the folder *lesson_5*; naming it *lesson_6*.
+2. Using ATOM, edit the *package.json* file in *lesson_6*; rename the
+project *lesson_6*.
+3. From the *lesson_6* folder, type *npm start* to start the application
 in your default browser.
 
-## Laying out the Render Method
+## Stateless Functional Component
 
-**Assignment:** Using ATOM update the *render* method (provided below) in
-the file *src/App.js*.
+**Assignment:** Create a file *Counter.js* in the *src* folder with the
+following:
 
-*render method*
+*Counter.js*
 ```js
-render() {
-  return (
-    <div>
-      <div>0</div>
-      <button>+</button>
-    </div>
-  );
+import React, { PropTypes } from 'react';
+
+const Counter = ({ increment, value }) => (
+  <div>
+    <div>{value}</div>
+    <button
+      onClick={increment}
+    >
+      +
+    </button>
+  </div>
+);
+Counter.propTypes = {
+  increment: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+};
+export default Counter;
+```
+
+This is a simplified, *stateless functional component* way of constructing
+a React component. Essentially it is just the *render* method. This component
+is passed two properties from the parent component, *increment* and *value*.
+
+With this component, the *App* function is stripped of the DOM specific
+implementation details.
+
+**Assignment:** Update *App.js* to as follows:
+
+*App.js*
+```js
+import React, { Component } from 'react';
+import Counter from './Counter';
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      counter: 0,
+    };
+  }
+  render() {
+    const { counter } = this.state;
+    return (
+      <Counter
+        increment={() => { this.setState({ counter: counter + 1 }); }}
+        value={counter === 0 ? 'zero' : counter.toString()}
+      />
+    );
+  }
 }
+
+export default App;
 ```
 
-**note**: Remember React components need to return a single component;
-thus the extra `<div>`.
+Essentially we have stripped all the DOC specific content
+from *App.js* and put it into *Counter.js*.
 
-## The State
+## React Developer Tools
 
-In the previous counter application implementations, the current value
-(state) of the counter was stored in the DOM itself (the *counter* element).
-One problem with this approach is that interacting with the DOM is slow;
-another is that the code is messy with all the DOM commands.
+**Assignment:** Install the Chrome extension *React Developer Tools*.
 
-Instead, we will simply keep the state of the counter as a property of the
-component; actually wrapped in a property called *state*. This is just
-plain old ES2015 classes.
+*React Developer Tools* allows you to inspect the state and properties
+of a React component.
 
-**Assignment:** Using ATOM add the *constructor* (provided below)
-immediately after the *class* declaration line in the file *src/App.js*.
-
-*constructor*
-```js
-constructor() {
-  super();
-  this.state = {
-    counter: 0,
-  };
-}
-```
-
-**Assignment:** Using ATOM update the *render* method (provided below) in
-the file *src/App.js*.
-
-*render method*
-```js
-render() {
-  const { counter } = this.state;
-  return (
-    <div>
-      <div>{counter}</div>
-      <button>+</button>
-    </div>
-  );
-}
-```
-
-First you can that we use object destructuring to assign the counter value
-to the *counter* variable.
-
-Additionally, we use the JSX curly brace syntax to indicate to the
-transpiler (Babel) that the containing content is JavaScript that is
-passed as the child of the element.
-
-*div transpiled*
-```js
-React.createElement(
-  'div',
-  null,
-  counter
-)
-```
-
-**note:** Technically the value of counter is an integer (not a string
-as we want rendered to the DOM); luckily this environment is forgiving.
-Otherwise we would have to use *counter.toString()*.
-
-**Assignment:** In the same *render* method replace `{counter}`
-with `{counter === 0 ? 'zero' : counter}`
-
-Illustrates that we can pass in more complex JavaScript. This is an example
-of a JavaScript ternary operator that often gets used with React.
-
-## Event Handling
-
-Now, when the user clicks on the increment button we need a way to
-handle this.
-
-**Assignment:** In the same *render* method update the *button*
-component (provided below).
-
-*button component*
-```js
-<button
-  onClick={() => { window.console.log('CLICKED'); }}
->
-  +
-</button>
-```
-
-**note:** It is very easy to misunderstand what is going on and
-think we are doing old-style DOM manipulation.
-
-The proper way to interpret the *onClick* line is:
-
-1. We create JavaScript code that evaluates to a function (the ES2015 style
-arrow function).
-2. We wrap it in curly braces to tell Babel to evaluate the containing
-as JavaScript code; resulting in this case a function.
-3. The resultant function then gets passed to the *<button>* component
-as the special *onClick* property; more on properties later.
-4. The special *onClick* property causes React to attach (and detatch)
-*click* event listeners to the created DOM *button* element.
-
-*button transpiled*
-```js
-React.createElement(
-  'button',
-  {
-    onClick: function onClick() {
-      window.console.log('CLICKED');
-    }
-  },
-  '+'
-)
-```
-
-## Causing Component to Re-render
-
-The inherited *setState* method of a React component will:
-
-1. Set the component's *state* property.
-2. Cause the React component to re-render by calling the component's
-*render* method.
-
-**Assignment:** Update the button's *onClick* property (provided below);
-
-*onClick property*
-```js
-onClick={() => { this.setState({ counter: counter + 1 }); }}
-```
+**Assignment:** From *Chrome Developer Tools* select the *React*
+tab to inspect the state and properties of the *App* and *Counter*
+components.
