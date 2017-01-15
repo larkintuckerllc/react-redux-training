@@ -4,7 +4,7 @@ This branch is one lesson in a series of lessons to supplement a six hour
 in-class React / Redux training course; switch to the *master* branch
 to start the series.
 
-In this lesson, we will wrap up Redux and provide next steps.
+In this lesson, we will wrap up the introduction to Redux.
 
 **Assignment:** Create a new React project following these steps:
 
@@ -24,4 +24,41 @@ updates by executing the getters and comparing (===) the new value to the
 previous value. If any of the values differ, it triggers an update cycle of
 the wrapped component, e.g., *App*.
 
-## React Developer Tools
+## Redux Developer Tools
+
+**Assignment**: Install the Chrome extension Redux Developer Tools.
+
+Redux Developer Tools allows you to inspect the Redux store.
+
+**Assignment**: Enable Redux Developer Tools in the project updating
+*index.js* in *src* (see below).
+
+*index.js*
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import { Provider } from 'react-redux';
+import counter from './ducks/counter';
+import App from './App';
+
+const middlewares = [];
+const store = createStore(
+  combineReducers({
+    counter,
+  }),
+  compose(
+    applyMiddleware(...middlewares),
+    window.devToolsExtension ? window.devToolsExtension() : f => f,
+  )
+);
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+```
+
+**Assignment**: From Chrome Developer Tools select the Redux tab to inspect
+the Redux store.
